@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css?family=Chewy');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Chewy', 'comic sans', cursive;
+}
+
+body {
+    background-image: url('images/background.jpg');
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.toplinks {
+    float: right;
+    margin: 2%;
+}
+
+.toplinks a {
+    text-decoration: none;
+    color: #000;
+}
+
+.toplinks img {
+    height: 13px;
+    margin: 2px;
+}
+
+header img {
+    height: 70px;
+}
+
+.main nav ul li {
+    display: inline;
+    line-height: 50px;
+    margin: 2%;
+}
+
+.main nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.main nav ul li a:hover {
+    background-color: #fff;
+    color: #de2226;
+}
+
+.main nav {
+    background-color: #de2226;
+    height: 50px;
+    color: #fff;
+}
+
+.main {
+    background-color: #fff;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.banner {
+    background-image: url('images/dinnerrocketfeature.jpg');
+    height: 400px;
+    color: #990033;
+    display: flex;
+    justify-content: flex-end;
+    margin: 8px;
+}
+
+.banner img {
+    height: 70px;
+}
+
+.content h1 {
+    margin: 0;
+    margin-left: 8px;
+    font-size: 2em;
+}
+
+.intro {
+    margin: 2%;
+    font-size: 1.5em;
+}
+
+.intro h3 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.intro ul {
+    padding-left: 0;
+    margin: 0;
+}
+
+.intro ul li {
+    list-style: none;
+}
+
+button {
+    background-color: bisque;
+    border: none;
+    border-radius: 20px;
+    height: 20px;
+    width: 80px;
+    font-size: 10px;
+}
+
+.second {
+    display: flex;
+}
+
+.recipes {
+    margin-right: 40px;
+    margin-left: 10px;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.wrapper div {
+    display: flex;
+    flex-direction: column;
+    margin: 3%;
+    text-align: center;
+}
+
+.wrapper div img {
+    width: 70px;
+    margin: 0 auto;
+}
+
+.sep {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews {
+    margin-right: 40px;
+    margin-left: 10px;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+footer ul li {
+    margin-left: 5px;
+}
+
+.footer {
+    font-size: 12px;
+    text-align: center;
+}
+
+.bottomnav {
+    list-style: none;
+}
+
+hr {
+    height: 4px;
+    border: none;
+    background-color: #000;
+}
+
+.form {
+    padding: 50px 0;
+    margin: 0 auto;
+    width: 400px;
+}
+
+form {
+   text-align: center;
+}
+
+.form h1{
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+}
+
+.form button {
+       margin: 10px;
+}
+
+@media (max-width: 980px) {
+
+    .intro {
+        font-size: 30px;
+        font-size: 3.5vw;
+    }
+    .intro img {
+        height: 50px;
+    }
+    .banner {
+        height: 100%;
+        background-size: cover;
+    }
+    .main {
+        width: 90%;
+    }
+    .second {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .main nav ul li {
+        display: inline;
+        line-height: 50px;
+        font-size: 12px;
+        margin: 1%;
+    }
+}

@@ -21,7 +21,7 @@
                 echo $message;
                 }
             ?>
-        <form action="/acme/accounts/index.php?action=login" method="post">
+        <form action="/acmeproject/accounts/" method="post">
              <p>Email Address:</p>
             <input type="email" name="email" id="email"  <?php if(isset($email)){echo "value='$email'";} ?> required>
             <br />

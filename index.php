@@ -11,6 +11,10 @@ require_once 'model/acme-model.php';
 require_once 'library/functions.php';
 
 
+// Create or access a Session
+session_start();
+
+
 $categories = getCategories();
 
 
@@ -26,7 +30,10 @@ $accReg = '<a href="?action=registration"><button type="button">Register</button
 //exit;
 
 
-
+// Check if the firstname cookie exists, get its value
+if(isset($_COOKIE['firstname'])){
+    $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
+}
 
 
 

@@ -11,7 +11,7 @@ require_once '../model/accounts-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 
-
+session_start();
 
 // Get the accounts model
 $categories = getCategories();

@@ -13,6 +13,8 @@ require_once '../model/products-model.php';
 require_once '../library/functions.php';
 
 
+session_start();
+
 // Get the accounts model
 $categories = getCategories();
 

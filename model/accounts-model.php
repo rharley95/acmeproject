@@ -54,9 +54,26 @@ function checkExistingEmail($email) {
   $stmt->execute();
   $matchEmail = $stmt->fetch(PDO::FETCH_NUM);
   $stmt->closeCursor();
+
   if(empty($matchEmail)){
     return 0;
+//      echo 'Nothing Found';
+//      exit;
   } else {
     return 1;
+//      echo 'Match found';
+//      exit;
   }
+}
+
+// Get client data based on an email address
+function getClient($email){
+    $db = acme();
+    $sql = 'SELECT clientId, clientFirstname, clientLastname, clientEmail, clientLevel, clientPassword FROM clients WHERE clientEmail = :email';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $clientData;
 }

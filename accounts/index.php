@@ -12,6 +12,8 @@ require_once '../model/accounts-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 
+session_start();
+
 // Get the accounts model
 $categories = getCategories();
 $buildNav = buildNav();
@@ -54,14 +56,21 @@ switch ($action) {
         $email = checkEmail($email);
         $checkPassword = checkPassword($password);
 
+        // Check for existing email address in the table
         $existingEmail = checkExistingEmail($email);
 
+
+        if($existingEmail){
+            $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
+            include '../view/login.php';
+            exit;
+        }
+
+
+
+
 // Check for existing email address in the table
-if($existingEmail){
-  $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
-  include '../view/login.php';
-  exit;
-}
+
 
 // Validate to check if form fields are empty
         if (empty($firstname) || empty($lastname) || empty($email) || empty($checkPassword)) {
@@ -76,11 +85,18 @@ if($existingEmail){
             //Send data to mooodel!
             $regOutcome = regVisitor($firstname, $lastname, $email, $password);
 
+
 // Check and report the result
             if ($regOutcome === 1) {
+                setcookie('firstname', $firstname, strtotime('+1 year'), '/');
                 $message = "<p>Thanks for registering $firstname. Please use your email and password to login.</p>";
                 include '../view/login.php';
                 exit;
+
+
+
+
+
             } else {
                 $message = "<p>Sorry $firstname, but the registration failed. Please try again.</p>";
                 include '../view/registration.php';
@@ -93,10 +109,41 @@ if($existingEmail){
 
         case 'Login':
             $email = filter_input(INPUT_POST, 'email');
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            $email = checkEmail($email);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            $passwordCheck = checkPassword($password);
 
-        $email = checkEmail($email);
-        $checkPassword = checkPassword($password);
+        // Run basic checks, return if errors
+            if (empty($email) || empty($passwordCheck)) {
+                $message = '<p class="notice">Please provide a valid email address and password.</p>';
+                include '../view/login.php';
+                exit;
+            }
+
+        // A valid password exists, proceed with the login process
+        // Query the client data based on the email address
+            $clientData = getClient($email);
+        // Compare the password just submitted against
+        // the hashed password for the matching client
+            $hashCheck = password_verify($password, $clientData['clientPassword']);
+        // If the hashes don't match create an error
+        // and return to the login view
+            if (!$hashCheck) {
+                $message = '<p class="notice">Please check your password and try again.</p>';
+                include '../view/login.php';
+                exit;
+            }
+        // A valid user exists, log them in
+            $_SESSION['loggedin'] = TRUE;
+        // Remove the password from the array
+        // the array_pop function removes the last
+        // element from an array
+            array_pop($clientData);
+        // Store the array into the session
+            $_SESSION['clientData'] = $clientData;
+        // Send them to the admin view
+            include '../view/admin.php';
+            exit;
         break;
 
 }

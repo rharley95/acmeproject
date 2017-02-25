@@ -33,15 +33,15 @@ if ( $_SESSION['loggedin'] == false){
         <p>This is the super awesome admin page yas.</p>
 
         <ul>
-            <ol><?php echo $_SESSION['clientData']['clientFirstname']; ?></ol>
-            <ol><?php echo $_SESSION['clientData']['clientLastname']; ?></ol>
-            <ol><?php echo $_SESSION['clientData']['clientEmail']; ?></ol>
-            <ol><?php echo $_SESSION['clientData']['clientLevel']; ?></ol>
+            <ol><strong>Name:</strong> <?php echo $_SESSION['clientData']['clientFirstname']; ?></ol>
+            <ol><strong>Last Name:</strong> <?php echo $_SESSION['clientData']['clientLastname']; ?></ol>
+            <ol><strong>Email:</strong> <?php echo $_SESSION['clientData']['clientEmail']; ?></ol>
+            <ol><strong>Level:</strong> <?php echo $_SESSION['clientData']['clientLevel']; ?></ol>
 
         </ul>
 
         <?php
-        if ( $_SESSION['clientData']['clientLevel'] == 2){
+        if ( $_SESSION['clientData']['clientLevel'] >= 2){
             echo '<a href="/acmeproject/index.php?action=products"> Register Products </a>';
         }
 

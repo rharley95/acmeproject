@@ -16,13 +16,17 @@ $catList .= "</select>";
 
 
 
-if ( $clientData == false){
+
+
+if ( $_SESSION['clientData']['clientLevel'] < 2){
     header('location: /acmeproject');
 }
 
-
-
 ?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 

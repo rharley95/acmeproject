@@ -1,3 +1,9 @@
+<?php
+if ( $_SESSION['loggedin'] == false){
+    header('location: /acmeproject');
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -27,9 +33,19 @@
         <p>This is the super awesome admin page yas.</p>
 
         <ul>
-            <ol><?php echo $clientData['email']; ?></ol>
+            <ol><?php echo $_SESSION['clientData']['clientFirstname']; ?></ol>
+            <ol><?php echo $_SESSION['clientData']['clientLastname']; ?></ol>
+            <ol><?php echo $_SESSION['clientData']['clientEmail']; ?></ol>
+            <ol><?php echo $_SESSION['clientData']['clientLevel']; ?></ol>
 
         </ul>
+
+        <?php
+        if ( $_SESSION['clientData']['clientLevel'] == 2){
+            echo '<a href="/acmeproject/index.php?action=products"> Register Products </a>';
+        }
+
+        ?>
 
 
 

@@ -14,6 +14,14 @@ $catList .= "<option>Choose a Category</option>";
     }
 $catList .= "</select>";
 
+
+
+if ( $clientData == false){
+    header('location: /acmeproject');
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html>

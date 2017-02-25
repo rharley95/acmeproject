@@ -146,4 +146,13 @@ switch ($action) {
             exit;
         break;
 
+
+
+    case 'logout':
+        session_destroy();
+        header('Location: /acmeproject');
+        exit;
+
+
+//
 }

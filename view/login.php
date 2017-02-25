@@ -1,3 +1,11 @@
+<?php
+
+if(isset($_SESSION['loggedin'])) {
+    header ('location: /acmeproject/index.php?action=admin');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 

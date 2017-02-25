@@ -1,3 +1,10 @@
+<?php
+if ( $clientData == false){
+    header('location: /acmeproject');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 

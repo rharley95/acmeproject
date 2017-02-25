@@ -9,6 +9,8 @@ require_once 'library/connections.php';
 require_once 'model/acme-model.php';
 // Get the functions library
 require_once 'library/functions.php';
+require_once 'model/accounts-model.php';
+
 
 
 // Create or access a Session
@@ -33,6 +35,7 @@ $accReg = '<a href="?action=registration"><button type="button">Register</button
 // Check if the firstname cookie exists, get its value
 if(isset($_COOKIE['firstname'])){
     $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
+
 }
 
 
@@ -74,8 +77,13 @@ break;
 case 'products':
 include 'view/products-management.php';
 break;
+case 'admin':
+include 'view/admin.php';
+break;
+
 default:
 include 'sql/error.php';
 break;
 
 }
+

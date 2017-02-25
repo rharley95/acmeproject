@@ -77,3 +77,4 @@ function getClient($email){
     $stmt->closeCursor();
     return $clientData;
 }
+

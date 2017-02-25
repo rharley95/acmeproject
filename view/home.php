@@ -10,12 +10,14 @@
 <body>
 
     <section class="main">
-        
+
         <?php
         include 'header.php'
         ?>
 
         <section class="content">
+
+
             <?php if(isset($cookieFirstname)){
                 echo "<span>Welcome $cookieFirstname</span>";
             } ?>

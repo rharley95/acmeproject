@@ -21,25 +21,6 @@ $accLog = '<a href="?action=login"> <img src="images/account.gif" alt="suitcase 
 $accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
 
 
-//$navList = '<ul>';
-//$navList .= "<li><a href='/acmeproject/index.php' title='View the Acme home page'>Home</a></li>";
-//foreach ($categories as $category) {
-//    $navList .= "<li><a href='/acmeproject/index.php?action=$category[categoryName]' title='View our $category[categoryName] product line'>$category[categoryName]</a></li>";
-//}
-//$navList .= '</ul>';
-//
-//$accLog = '<a href="?action=login"> <img src="images/account.gif" alt="suitcase login">My Account</a>';
-//$accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
-
-
-
-//$catList = '<select name="invcat" id="invcat">';
-//foreach ($categories as $category) {
-//$catList .= "<option value='$category[categoryId]'> $category[categoryName] </option>";
-//}
-//$catList .= "</select>";
-
-
 
 
 $action = filter_input(INPUT_POST, 'action');
@@ -52,8 +33,46 @@ if ($action == NULL) {
 
 
 switch ($action) {
-    case 'products':
-        include '../view/products.php';
+    case 'products';
+//    $products = getProductBasics();
+//        if(count($products) > 0){
+//            $prodList = '<table>';
+//            $prodList .= '<thead>';
+//            $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+//            $prodList .= '</thead>';
+//            $prodList .= '<tbody>';
+//            foreach ($products as $product) {
+//                $prodList .= "<tr><td>$product[invName]</td>";
+//                $prodList .= "<td><a href='/acme/products?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
+//                $prodList .= "<td><a href='/acme/products?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
+//            }
+//            $prodList .= '</tbody></table>';
+//        } else {
+//            $message = '<p class="notify">Sorry, no products were returned.</p>';
+//        }
+//    case 'mod':
+//        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+//        $prodInfo = getProductInfo($prodId);
+//        if(count($prodInfo)<1){
+//            $message = 'Sorry, no product information could be found.';
+//        }
+//        include '../view/prod-update.php';
+//        exit;
+//        break;
+    include '../view/products-management.php';
+
+
+
+    break;
+
+    case 'mod':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+        if(count($prodInfo)<1){
+            $message = 'Sorry, no product information could be found.';
+        }
+        include '../view/prod-update.php';
+        exit;
         break;
    
 }
@@ -76,7 +95,7 @@ switch ($action) {
         $invweight = filter_input(INPUT_POST, 'invweight', FILTER_SANITIZE_NUMBER_INT);
 
 // Validate to check if form fields are empty
-        if (empty($invname) || empty($invdesc) || empty($invprice) || empty($invstock) || empty($invstyle) || empty($invloc) || empty($invvendor) || empty($invweight) || empty($invstyle)) {
+        if (empty($invname) || empty($invdesc) || empty($invprice) || empty($invstock) || empty($invsize) || empty($invloc) || empty($invvendor) || empty($invweight) || empty($invstyle)) {
             $message = '<p>Please provide information for all empty form fields.</p>';
             include '../view/products.php';
             exit;
@@ -97,4 +116,44 @@ switch ($action) {
                 break;
             }
         }
+
+
+    case 'updateProd':
+
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+        $invname = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        $invdesc = filter_input(INPUT_POST, 'invdesc', FILTER_SANITIZE_STRING);
+        $invprice = filter_input(INPUT_POST, 'invprice', FILTER_SANITIZE_STRING);
+        $invstock = filter_input(INPUT_POST, 'invstock', FILTER_SANITIZE_NUMBER_INT);
+        $invsize = filter_input(INPUT_POST, 'invsize', FILTER_SANITIZE_NUMBER_INT);
+        $invloc = filter_input(INPUT_POST, 'invloc', FILTER_SANITIZE_STRING);
+        $invcat = filter_input(INPUT_POST, 'invcat', FILTER_SANITIZE_STRING);
+        $invvendor = filter_input(INPUT_POST, 'invvendor', FILTER_SANITIZE_STRING);
+        $invstyle = filter_input(INPUT_POST, 'invstyle', FILTER_SANITIZE_STRING);
+        $invweight = filter_input(INPUT_POST, 'invweight', FILTER_SANITIZE_NUMBER_INT);
+
+// Validate to check if form fields are empty
+        if (empty($invname) || empty($invdesc) || empty($invprice) || empty($invstock) || empty($invsize) || empty($invloc) || empty($invcat) || empty($invvendor) || empty($invweight) || empty($invstyle)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/prod-update.php';
+            exit;
+        } else {
+
+            $updateResult = updateProducts($invname, $invdesc, $invprice, $invstock, $invsize, $invloc, $invcat, $invvendor, $invstyle, $invweight, $prodId);
+
+// Check and report the result
+            if ($updateResult) {
+                $message = "<p>Thanks for updating $invname. ";
+                $_SESSION['message'] = $message;
+                header('location: /acmeproject/products/');
+                exit;
+            } else {
+                $message = "<p>Sorry, your product did not update.</p>";
+                include '../view/prod-update.php';
+                exit;
+            }
+                break;
+
+        }
+
 }

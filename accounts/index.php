@@ -88,7 +88,7 @@ switch ($action) {
 
 // Check and report the result
             if ($regOutcome === 1) {
-                setcookie('firstname', $firstname, strtotime('+1 year'), '/');
+                setcookie('firstname', $firstname, time() + 3600, '/');
                 $message = "<p>Thanks for registering $firstname. Please use your email and password to login.</p>";
                 include '../view/login.php';
                 exit;
@@ -98,12 +98,15 @@ switch ($action) {
 
 
             } else {
+                $cookieEnds;
                 $message = "<p>Sorry $firstname, but the registration failed. Please try again.</p>";
                 include '../view/registration.php';
                 exit;
 
                 break;
             }
+
+
         }
 
 
@@ -150,6 +153,7 @@ switch ($action) {
 
     case 'logout':
         session_destroy();
+        setcookie(['clientData']['clientFirstname'], time() - 3600, '/');
         header('Location: /acmeproject');
         exit;
 

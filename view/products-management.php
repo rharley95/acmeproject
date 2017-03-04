@@ -1,6 +1,10 @@
 <?php
 if ( $_SESSION['clientData']['clientLevel'] < 2){
     header('location: /acmeproject');
+
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+    }
 }
 
 ?>
@@ -26,7 +30,19 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
         <a href="/acmeproject/index.php?action=categories"> Add Categories </a>
         <br/>
         <a href="/acmeproject/products/index.php"> Add To Inventory </a>
+
+            <?php
+            if (isset($message)) {
+                echo $message;
+            } if (isset($prodList)) {
+                echo $prodList;
+            }
+            ?>
+
+
         </center>
+
+
             
        
         <hr>
@@ -41,3 +57,5 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
 </body>
 
 </html>
+
+<?php unset($_SESSION['message']); ?>

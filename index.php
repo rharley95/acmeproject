@@ -10,6 +10,8 @@ require_once 'model/acme-model.php';
 // Get the functions library
 require_once 'library/functions.php';
 require_once 'model/accounts-model.php';
+require_once 'model/products-model.php';
+
 
 
 
@@ -18,7 +20,6 @@ session_start();
 
 
 $categories = getCategories();
-
 
 $buildNav = buildNav();
 
@@ -75,12 +76,38 @@ case 'categories':
 include 'view/categories.php';
 break;
 case 'products':
+    $products = getProductBasics();
+    if(count($products) > 0){
+        $prodList = '<table>';
+        $prodList .= '<thead>';
+        $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+        $prodList .= '</thead>';
+        $prodList .= '<tbody>';
+        foreach ($products as $product) {
+            $prodList .= "<tr><td>$product[invName]</td>";
+            $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
+            $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
+        }
+        $prodList .= '</tbody></table>';
+    } else {
+        $message = '<p class="notify">Sorry, no products were returned.</p>';
+    }
+
+
 include 'view/products-management.php';
 break;
 case 'admin':
 include 'view/admin.php';
 break;
-
+    case 'mod':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+        if(count($prodInfo)<1){
+            $message = 'Sorry, no product information could be found.';
+        }
+        include 'view/prod-update.php';
+        exit;
+        break;
 default:
 include 'sql/error.php';
 break;

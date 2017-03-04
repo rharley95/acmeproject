@@ -18,6 +18,8 @@ $catList .= "</select>";
 
 
 
+
+
 if ( $_SESSION['clientData']['clientLevel'] < 2){
     header('location: /acmeproject');
 }
@@ -59,7 +61,7 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
                     <input type="text" name="invname" id="invname" <?php if(isset($invname)){echo "value='$invname'";} ?> required>
                     <br>
                     Description:
-                    <input type="text" name="invdesc" id="invdesc" size="45" <?php if(isset($invdesc)){echo "value='$invdesc'";} ?> required>
+                    <textarea type="text" name="invdesc" id="invdesc" size="64" required> <?php if(isset($invdesc)){echo "value='$invdesc'";} ?> </textarea>
                     <br>
                     Price
                     <input type="number" name="invprice" id="invprice" <?php if(isset($invprice)){echo "value='$invprice'";} ?> required>

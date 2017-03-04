@@ -33,10 +33,10 @@ if ( $_SESSION['loggedin'] == false){
         <p>This is the super awesome admin page yas.</p>
 
         <ul>
-            <ol><strong>Name:</strong> <?php echo $_SESSION['clientData']['clientFirstname']; ?></ol>
-            <ol><strong>Last Name:</strong> <?php echo $_SESSION['clientData']['clientLastname']; ?></ol>
-            <ol><strong>Email:</strong> <?php echo $_SESSION['clientData']['clientEmail']; ?></ol>
-            <ol><strong>Level:</strong> <?php echo $_SESSION['clientData']['clientLevel']; ?></ol>
+            <li><strong>Name:</strong> <?php echo $_SESSION['clientData']['clientFirstname']; ?></li>
+            <li><strong>Last Name:</strong> <?php echo $_SESSION['clientData']['clientLastname']; ?></li>
+            <li><strong>Email:</strong> <?php echo $_SESSION['clientData']['clientEmail']; ?></li>
+            <li><strong>Level:</strong> <?php echo $_SESSION['clientData']['clientLevel']; ?></li>
 
         </ul>
 

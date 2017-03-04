@@ -7,6 +7,8 @@
  * The Acme Project :) swagger
  */
 
+
+
 function acmeProducts() {
     
 $server = 'localhost';
@@ -102,4 +104,78 @@ function regCategory($catname){
    $stmt->closeCursor();
 // Return the indication of success (rows changed)
    return $rowsChanged;
+}
+
+function getProductBasics() {
+    $db = acme();
+    $sql = 'SELECT invName, invId FROM inventory ORDER BY invName ASC';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_NAMED);
+    $stmt->closeCursor();
+    return $products;
+}
+
+function getProductInfo($prodId){
+    $db = acme();
+    $sql = 'SELECT * FROM inventory WHERE invId = :prodId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
+    $stmt->execute();
+    $prodInfo = $stmt->fetch(PDO::FETCH_NAMED);
+    $stmt->closeCursor();
+    return $prodInfo;
+}
+
+/**
+ * @param $invname
+ * @param $invdesc
+ * @param $invprice
+ * @param $invstock
+ * @param $invsize
+ * @param $invloc
+ * @param $invcat
+ * @param $invvendor
+ * @param $invstyle
+ * @param $invweight
+ * @param $prodId
+ * @return int
+ */
+function updateProducts($invname, $invdesc, $invprice, $invstock, $invsize, $invloc, $invcat, $invvendor, $invstyle, $invweight, $prodId){
+// Create a connection object using the acme connection function
+    $db = acme();
+// The SQL statement
+    $invimg = '/acmeproject/images/no-image.png';
+    $invthumb = '/acmeproject/images/no-image.png';
+//   $invweight = 3;
+
+
+    $testID= 3;
+    $sql = 'UPDATE inventory SET invName = :invname, invDescription = :invdesc, invImage = :invimg, invThumbnail = :invthumb, invPrice = :invprice, invStock = :invstock, invSize = :invsize, invLocation = :invloc, categoryId = :invcat, invVendor = :invvendor, invStyle = :invstyle, invWeight = :invweight WHERE invId= :prodId';
+// Create the prepared statement using the acme connection
+    $stmt = $db->prepare($sql);
+// The next four lines replace the placeholders in the SQL
+// statement with the actual values in the variables
+// and tells the database the type of data it is
+    $stmt->bindValue(':invname', $invname, PDO::PARAM_STR);
+    $stmt->bindValue(':invdesc', $invdesc, PDO::PARAM_STR);
+    $stmt->bindValue(':invprice', $invprice, PDO::PARAM_INT);
+    $stmt->bindValue(':invstock', $invstock, PDO::PARAM_INT);
+    $stmt->bindValue(':invsize', $invsize, PDO::PARAM_INT);
+    $stmt->bindValue(':invloc', $invloc, PDO::PARAM_STR);
+    $stmt->bindValue(':invvendor', $invvendor, PDO::PARAM_STR);
+    $stmt->bindValue(':invstyle', $invstyle, PDO::PARAM_STR);
+    $stmt->bindValue(':invcat', $invcat, PDO::PARAM_INT);
+    $stmt->bindValue(':invimg', $invimg, PDO::PARAM_STR);
+    $stmt->bindValue(':invthumb', $invthumb, PDO::PARAM_STR);
+    $stmt->bindValue(':invweight', $invweight, PDO::PARAM_INT);
+    $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
+// Insert the data
+    $stmt->execute();
+// Ask how many rows changed as a result of our insert
+    $rowsChanged = $stmt->rowCount();
+// Close the database interaction
+    $stmt->closeCursor();
+// Return the indication of success (rows changed)
+    return $rowsChanged;
 }

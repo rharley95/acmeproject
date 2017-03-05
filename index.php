@@ -86,7 +86,7 @@ case 'products':
         foreach ($products as $product) {
             $prodList .= "<tr><td>$product[invName]</td>";
             $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
-            $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
+            $prodList .= "<td><a href='/acmeproject/index.php?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
         }
         $prodList .= '</tbody></table>';
     } else {
@@ -106,6 +106,39 @@ break;
             $message = 'Sorry, no product information could be found.';
         }
         include 'view/prod-update.php';
+        exit;
+        break;
+    case 'del':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+        if (count($prodInfo) < 1) {
+            $message = 'Sorry, no product information could be found.';
+        }
+        include 'view/prod-delete.php';
+        exit;
+        break;
+    case 'deleteProd':
+        $invname = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+
+        $deleteResult = deleteProduct($prodId);
+        if ($deleteResult) {
+            $message = "<p class='notice'>Congratulations, $invname was successfully deleted.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /acmeproject/products/');
+            exit;
+        } else {
+            $message = "<p class='notice'>Error: $invname was not deleted.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /acmeproject/products/');
+            exit;
+        }
+        break;
+    case 'userup':
+        $clientId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $clientData = getClient($email);
+
+        include 'view/client-update.php';
         exit;
         break;
 default:

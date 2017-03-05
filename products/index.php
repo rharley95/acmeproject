@@ -33,32 +33,32 @@ if ($action == NULL) {
 
 
 switch ($action) {
-    case 'products';
-//    $products = getProductBasics();
-//        if(count($products) > 0){
-//            $prodList = '<table>';
-//            $prodList .= '<thead>';
-//            $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
-//            $prodList .= '</thead>';
-//            $prodList .= '<tbody>';
-//            foreach ($products as $product) {
-//                $prodList .= "<tr><td>$product[invName]</td>";
-//                $prodList .= "<td><a href='/acme/products?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
-//                $prodList .= "<td><a href='/acme/products?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
-//            }
-//            $prodList .= '</tbody></table>';
-//        } else {
-//            $message = '<p class="notify">Sorry, no products were returned.</p>';
-//        }
-//    case 'mod':
-//        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-//        $prodInfo = getProductInfo($prodId);
-//        if(count($prodInfo)<1){
-//            $message = 'Sorry, no product information could be found.';
-//        }
-//        include '../view/prod-update.php';
-//        exit;
-//        break;
+    case 'products':
+    $products = getProductBasics();
+        if(count($products) > 0){
+            $prodList = '<table>';
+            $prodList .= '<thead>';
+            $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            $prodList .= '</thead>';
+            $prodList .= '<tbody>';
+            foreach ($products as $product) {
+                $prodList .= "<tr><td>$product[invName]</td>";
+                $prodList .= "<td><a href='/acme/products?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
+                $prodList .= "<td><a href='/acme/products?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
+            }
+            $prodList .= '</tbody></table>';
+        } else {
+            $message = '<p class="notify">Sorry, no products were returned.</p>';
+        }
+    case 'mod':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+        if(count($prodInfo)<1){
+            $message = 'Sorry, no product information could be found.';
+        }
+        include '../view/prod-update.php';
+        exit;
+        break;
     include '../view/products-management.php';
 
 
@@ -145,7 +145,7 @@ switch ($action) {
             if ($updateResult) {
                 $message = "<p>Thanks for updating $invname. ";
                 $_SESSION['message'] = $message;
-                header('location: /acmeproject/products/');
+                header('location: /acmeproject/index.php?action=products');
                 exit;
             } else {
                 $message = "<p>Sorry, your product did not update.</p>";
@@ -155,5 +155,33 @@ switch ($action) {
                 break;
 
         }
+
+    case 'del':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+        if (count($prodInfo) < 1) {
+            $message = 'Sorry, no product information could be found.';
+        }
+        include '../view/prod-delete.php';
+        exit;
+        break;
+
+    case 'deleteProd':
+        $invname = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+
+        $deleteResult = deleteProduct($prodId);
+        if ($deleteResult) {
+            $message = "<p class='notice'>Congratulations, $invname was successfully deleted.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /acmeproject/products/');
+            exit;
+        } else {
+            $message = "<p class='notice'>Error: $invname was not deleted.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /acmeproject/products/');
+            exit;
+        }
+        break;
 
 }

@@ -43,7 +43,7 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
 
     <h1><?php if(isset($prodInfo['invName'])){ echo "Modify $prodInfo[invName] ";} elseif(isset($prodName)) { echo $prodName; }?></h1>
 
-    <form method="post" action="/acmeproject/products/index.php">
+    <form method="post" action="/acmeproject/index.php?action=products">
         <?php
         if (isset($message)) {
             echo $message;

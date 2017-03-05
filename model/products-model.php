@@ -145,8 +145,8 @@ function updateProducts($invname, $invdesc, $invprice, $invstock, $invsize, $inv
 // Create a connection object using the acme connection function
     $db = acme();
 // The SQL statement
-    $invimg = '/acmeproject/images/no-image.png';
-    $invthumb = '/acmeproject/images/no-image.png';
+//    $invimg = '/acmeproject/images/no-image.png';
+//    $invthumb = '/acmeproject/images/no-image.png';
 //   $invweight = 3;
 
 
@@ -169,6 +169,36 @@ function updateProducts($invname, $invdesc, $invprice, $invstock, $invsize, $inv
     $stmt->bindValue(':invimg', $invimg, PDO::PARAM_STR);
     $stmt->bindValue(':invthumb', $invthumb, PDO::PARAM_STR);
     $stmt->bindValue(':invweight', $invweight, PDO::PARAM_INT);
+    $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
+// Insert the data
+    $stmt->execute();
+// Ask how many rows changed as a result of our insert
+    $rowsChanged = $stmt->rowCount();
+// Close the database interaction
+    $stmt->closeCursor();
+// Return the indication of success (rows changed)
+    return $rowsChanged;
+}
+
+
+// to delete a record
+function deleteProduct($prodId){
+// Create a connection object using the acme connection function
+    $db = acme();
+// The SQL statement
+//    $invimg = '/acmeproject/images/no-image.png';
+//    $invthumb = '/acmeproject/images/no-image.png';
+//   $invweight = 3;
+
+
+    $testID= 3;
+    $sql = 'DELETE FROM inventory WHERE invId = :prodId';
+// Create the prepared statement using the acme connection
+    $stmt = $db->prepare($sql);
+// The next four lines replace the placeholders in the SQL
+// statement with the actual values in the variables
+// and tells the database the type of data it is
+
     $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
 // Insert the data
     $stmt->execute();

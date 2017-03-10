@@ -66,33 +66,14 @@ break;
 case 'registration':
 include 'view/registration.php';
 break;
+
 case 'products-registry':
-
-
-
 include 'view/products.php';
 break;
 case 'categories':
 include 'view/categories.php';
 break;
 case 'products':
-    $products = getProductBasics();
-    if(count($products) > 0){
-        $prodList = '<table>';
-        $prodList .= '<thead>';
-        $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
-        $prodList .= '</thead>';
-        $prodList .= '<tbody>';
-        foreach ($products as $product) {
-            $prodList .= "<tr><td>$product[invName]</td>";
-            $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
-            $prodList .= "<td><a href='/acmeproject/index.php?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
-        }
-        $prodList .= '</tbody></table>';
-    } else {
-        $message = '<p class="notify">Sorry, no products were returned.</p>';
-    }
-
 
 include 'view/products-management.php';
 break;
@@ -134,15 +115,26 @@ break;
             exit;
         }
         break;
-    case 'userup':
-        $clientId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        $clientData = getClient($email);
-
+    case 'update':
         include 'view/client-update.php';
         exit;
         break;
+    case 'category':
+        $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $products = getProductsByCategory($type);
+        if(!count($products)){
+            $message = "<p class='notice'>Sorry, no $type products ccould be found.</p>";
+        } else {
+            $prodDisplay = buildProductsDisplay($products);
+        }
+        echo $prodDisplay;
+        exit;
+
+        include 'view/category.php';
+        break;
 default:
-include 'sql/error.php';
+//include 'sql/error.php';
+    echo 'nothing is here';
 break;
 
 }

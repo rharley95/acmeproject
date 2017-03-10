@@ -1,3 +1,9 @@
+<?php
+if ( $_SESSION['loggedin'] == false){
+    header('location: /acmeproject');
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -22,14 +28,14 @@
                 echo $message;
                     }
             ?>
-            <form method="post" action="/acmeproject/index.php?action=admin">
+            <form method="post" action="/acmeproject/accounts/index.php?action=update">
                 <h2>Account Update</h2>
                 <p> First Name:</p>
                 <input name="firstname" id="firstname" value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientFirstname']; } ?>">
                 <p>Last Name:</p>
-                <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientLastname'];} ?>" required>
+                <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientLastname'];} ?>">
                 <p>Email Address:</p>
-            <input type="email" name="email" id="email"  value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientEmail']; } ?>" required>
+            <input type="email" name="email" id="email"  value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientEmail']; } ?>">
                 <h2>Password Update</h2>
             <p>Password:</p>
                 <label for="password">New password:</label>

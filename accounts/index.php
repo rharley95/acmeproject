@@ -98,7 +98,6 @@ switch ($action) {
 
 
             } else {
-                $cookieEnds;
                 $message = "<p>Sorry $firstname, but the registration failed. Please try again.</p>";
                 include '../view/registration.php';
                 exit;
@@ -157,8 +156,54 @@ switch ($action) {
         header('Location: /acmeproject');
         exit;
 
+    case 'admin':
+        include '../view/admin.php';
+        break;
+
+    case 'update':
+
+        $clientId = $_SESSION['clientData']['clientId'];
+        $clientData = getClient($email);
+
+        updateClient($firstname, $lastname, $email, $password, $clientId);
+
+        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_STRING);
+
+        //*check for emptiness*/
+
+        if (empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/client-update.php';
+            exit;
+        }
+
+        /*check difference in email*/
+
+        /*-check the new email, function below*/
+
+        $email = checkEmail($email);
 
 
+        $checkPassword = checkPassword($password);
+
+        // Check for existing email address in the table
+        $existingEmail = checkExistingEmail($email);
+
+        /* errors, send back to fix with message*/
+        /* attempt update through sql command (model) */
+
+        /*let them know of result*/
+
+
+        if($existingEmail){
+            $message = '<p class="notice">Sorry, that email is taken. Please pick a new one.</p>';
+            include '../view/login.php';
+            exit;
+        }
 
 
 }

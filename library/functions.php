@@ -39,12 +39,48 @@ function buildNav(){
     $categories = getCategories();
 
     $navList = '<ul>';
-    $navList .= "<li><a href='/acmeproject/index.php' title='View the Acme home page'>Home</a></li>";
+    $navList .= "<li><a href='/acmeproject/' title='View the Acme home page'>Home</a></li>";
         foreach ($categories as $category) {
-            $navList .= "<li><a href='/acmeproject/index.php?action=$category[categoryName]' title='View our $category[categoryName] product line'>$category[categoryName]</a></li>";
+            $navList .= "<li><a href='/acmeproject/products/index.php?action=category&type=$category[categoryName]' title='View our $category[categoryName] product line'>$category[categoryName]</a></li>";
         }
     $navList .= '</ul>';
 
     return $navList;
 }
+
+function buildProductsDisplay($products){
+    $pd = '<ul id="prod-display">';
+    foreach ($products as $product) {
+        $pd .= '<li>';
+        $pd .= "<img src='/acmeproject/images/products/$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'>";
+        $pd .= "<h2><a href='/acmeproject/products/index.php?action=getInfo&type=$product[invId]'>$product[invName]</a></h2>";
+        $pd .= "<span>$product[invPrice]</span>";
+        $pd .= '</li>';
+    }
+    $pd .= '</ul>';
+    return $pd;
+}
+
+function buildProductsInfoDisplay($product){
+    $pd = '<section class="prod-info">';
+        $pd .= "<img src='/acmeproject/images/products/$product[invImage]' alt='Image of $product[invName] on Acme.com'>";
+        $pd .= "<h2>$product[invName]</h2>";
+    $pd .= "<span>$product[invDescription]</span>";
+    $pd .= "</br>";
+        $pd .= "<span>$$product[invPrice]</span>";
+    $pd .= "</br>";
+    $pd .= "<span>$product[invSize]</span>";
+    $pd .= "</br>";
+    $pd .= "<span>$product[invWeight]</span>";
+    $pd .= "</br>";
+    $pd .= "<span>$product[invLocation]</span>";
+    $pd .= "</br>";
+    $pd .= "<span>$product[invVendor]</span>";
+    $pd .= "</br>";
+    $pd .= "<span>$product[invStyle]</span>";
+        $pd .= '</li>';
+    $pd .= '</section>';
+    return $pd;
+}
+
 

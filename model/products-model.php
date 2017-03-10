@@ -209,3 +209,14 @@ function deleteProduct($prodId){
 // Return the indication of success (rows changed)
     return $rowsChanged;
 }
+
+function getProductsByCategory($type){
+    $db = acme();
+    $sql = 'SELECT * FROM inventory WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :catType)';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':catType', $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $products;
+}

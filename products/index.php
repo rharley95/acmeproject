@@ -10,6 +10,7 @@ require_once '../model/products-model.php';
 require_once '../model/accounts-model.php';
 // Get the functions library
 require_once '../library/functions.php';
+require_once '../library/connections.php';
 
 session_start();
 
@@ -17,7 +18,7 @@ session_start();
 $categories = getCategories();
 $buildNav = buildNav();
 
-$accLog = '<a href="?action=login"> <img src="images/account.gif" alt="suitcase login">My Account</a>';
+$accLog = '<a href="?action=login"> <img src="/../acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
 $accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
 
 
@@ -117,6 +118,26 @@ switch ($action) {
             }
         }
 
+    case 'products':
+        $products = getProductBasics();
+        if(count($products) > 0){
+            $prodList = '<table>';
+            $prodList .= '<thead>';
+            $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            $prodList .= '</thead>';
+            $prodList .= '<tbody>';
+            foreach ($products as $product) {
+                $prodList .= "<tr><td>$product[invName]</td>";
+                $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
+                $prodList .= "<td><a href='/acmeproject/index.php?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
+            }
+            $prodList .= '</tbody></table>';
+        } else {
+            $message = '<p class="notify">Sorry, no products were returned.</p>';
+        }
+
+        include '../view/products-management.php';
+        break;
 
     case 'updateProd':
 
@@ -166,6 +187,7 @@ switch ($action) {
         exit;
         break;
 
+
     case 'deleteProd':
         $invname = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
         $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
@@ -183,5 +205,31 @@ switch ($action) {
             exit;
         }
         break;
+
+    case 'category':
+        $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $products = getProductsByCategory($type);
+        if(!count($products)){
+            $message = "<p class='notice'>Sorry, no $type products could be found.</p>";
+        } else {
+            $prodDisplay = buildProductsDisplay($products);
+
+        }
+        include '../view/category.php';
+        break;
+
+    case 'getInfo':
+        $product = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING); /*grabbing product id into product*/
+        $info = getProductInfo($product);
+
+        if(!count($info)) {
+            $message = "<p class='notice'> Sorry no information was found. </p> ";
+        } else {
+            $prodInfoDisplay = buildProductsInfoDisplay($info);
+        }
+
+        include '../view/product-detail.php';
+
+    break;
 
 }

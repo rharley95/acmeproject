@@ -42,7 +42,9 @@ if ( $_SESSION['loggedin'] == false){
 
         <?php
         if ( $_SESSION['clientData']['clientLevel'] >= 2){
-            echo '<a href="/acmeproject/index.php?action=products"> Register Products </a>';
+            echo '<a href="/acmeproject/products/index.php?action=products"> Register Products </a>';
+            echo '</br>';
+            echo '<a href="/acmeproject/accounts/index.php?action=update"> Update </a>';
         }
 
         ?>

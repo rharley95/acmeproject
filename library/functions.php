@@ -63,23 +63,35 @@ function buildProductsDisplay($products){
 
 function buildProductsInfoDisplay($product){
     $pd = '<section class="prod-info">';
+    $pd .= '<div class="prod-img">';
         $pd .= "<img src='/acmeproject/images/products/$product[invImage]' alt='Image of $product[invName] on Acme.com'>";
-        $pd .= "<h2>$product[invName]</h2>";
+        $pd .= '</div>';
+    $pd .= '<div class="prod-details">';
+        $pd .= "<h1>$product[invName]</h1>";
+    $pd .= "<hr>";
+    $pd .= "<h3>Description</h3>";
     $pd .= "<span>$product[invDescription]</span>";
-    $pd .= "</br>";
+    $pd .= "<br>";
+    $pd .= "<h3>Price</h3>";
         $pd .= "<span>$$product[invPrice]</span>";
-    $pd .= "</br>";
+    $pd .= "<br>";
+    $pd .= "<h3>Size</h3>";
     $pd .= "<span>$product[invSize]</span>";
-    $pd .= "</br>";
+    $pd .= "<br>";
+    $pd .= "<h3>Weight</h3>";
     $pd .= "<span>$product[invWeight]</span>";
-    $pd .= "</br>";
+    $pd .= "<br>";
+    $pd .= "<h3>Location</h3>";
     $pd .= "<span>$product[invLocation]</span>";
-    $pd .= "</br>";
+    $pd .= "<br>";
+    $pd .= "<h3>Vendor</h3>";
     $pd .= "<span>$product[invVendor]</span>";
-    $pd .= "</br>";
+    $pd .= "<br>";
+    $pd .= "<h3>Style</h3>";
     $pd .= "<span>$product[invStyle]</span>";
-        $pd .= '</li>';
+    $pd .= '</div>';
     $pd .= '</section>';
+
     return $pd;
 }
 

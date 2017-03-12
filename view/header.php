@@ -2,7 +2,7 @@
 
 
 
-<img src="/acmeproject/images/logo.gif" alt="Logo">
+<img src="/acmeproject/images/logo.gif" alt="Logo" class="logo">
             <div class="toplinks">
                 <?php if(isset($cookieFirstname)){
                     echo "<span>Welcome $cookieFirstname </span>";

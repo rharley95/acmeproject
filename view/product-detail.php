@@ -21,7 +21,7 @@ if ( $_SESSION['loggedin'] == false){
     include 'header.php';
     ?>
 
-    <section class="form">
+    <section class="prod-main">
         <?php echo $prodInfoDisplay; ?>
 
 

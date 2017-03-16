@@ -31,19 +31,19 @@ if ( $_SESSION['loggedin'] == false){
             <form method="post" action="/acmeproject/accounts/index.php?action=update">
                 <h2>Account Update</h2>
                 <p> First Name:</p>
-                <input name="firstname" id="firstname" value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientFirstname']; } ?>">
+                <input name="firstname" id="firstname" value="<?php if( $_SESSION['loggedin']){ echo $firstname; } ?>">
                 <p>Last Name:</p>
-                <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientLastname'];} ?>">
+                <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['loggedin']){ echo $lastname;} ?>">
                 <p>Email Address:</p>
-            <input type="email" name="email" id="email"  value="<?php if( $_SESSION['loggedin']){ echo $_SESSION['clientData']['clientEmail']; } ?>">
+            <input type="email" name="email" id="email"  value="<?php if( $_SESSION['loggedin']){ echo $email; } ?>">
                 <h2>Password Update</h2>
             <p>Password:</p>
                 <label for="password">New password:</label>
                 <span>Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
-                <br /><input type="password" name="password" id="password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" value="">
+                <br /><input type="password" name="password" id="password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" value="<?php if( $_SESSION['loggedin']){ echo $password; } ?>">
                 <br />
                 <input type="submit" name="submit" id="regbtn" value="Update Client">
-                <input type="hidden" name="action" value="updateClient">
+                <input type="hidden" name="action" value="update">
                 <input type="hidden" name="clId" value="<?php if(isset($clientInfo['clientId'])){ echo $clientInfo['clientId'];} elseif(isset($clId)){ echo $clId; } ?>">
            
             </form>

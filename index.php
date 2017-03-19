@@ -11,7 +11,7 @@ require_once 'model/acme-model.php';
 require_once 'library/functions.php';
 require_once 'model/accounts-model.php';
 require_once 'model/products-model.php';
-
+require_once 'model/uploads-model.php';
 
 
 
@@ -19,11 +19,11 @@ require_once 'model/products-model.php';
 session_start();
 
 
-$categories = getCategories();
+//$categories = getCategories();
 
 $buildNav = buildNav();
 
-$accLog = '<a href="?action=login"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
+$accLog = '<a href="accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
 $accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
 //
 //echo $navList;
@@ -66,7 +66,6 @@ if ($action == NULL) {
                 include 'view/categories.php';
                 break;
             case 'products':
-
                 include 'view/products-management.php';
                 break;
             case 'admin':

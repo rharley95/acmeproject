@@ -7,6 +7,17 @@
  * The Acme Project :) swagger
  */
 
+//function getCategories() {
+//    $db = acme();
+//    $sql = 'SELECT * FROM categories ORDER BY categoryName ASC';
+//    $stmt = $db->prepare($sql);
+//    $stmt->execute();
+//    $categories = $stmt->fetchAll();
+//    $stmt->closeCursor();
+//
+//
+//    return $categories;
+//}
 
 
 function acmeProducts() {

@@ -19,9 +19,9 @@ foreach ($categories as $category) {
 $catList .= '</select>';
 
 
-if ( $_SESSION['clientData']['clientLevel'] < 2){
-    header('location: /acmeproject');
-}
+//if ( $_SESSION['clientData']['clientLevel'] < 2){
+//    header('location: /acmeproject');
+//}
 
 ?>
 

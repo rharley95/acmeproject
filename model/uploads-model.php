@@ -68,3 +68,15 @@ function checkExistingImage($name){
     $stmt->closeCursor();
     return $imageMatch;
 }
+
+function getProdImage($prodId) {
+    $db = acme();
+    $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invName FROM Images JOIN inventory ON Images.invId = inventory.invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId);
+    $stmt->execute();
+    $image = $stmt->fetch();
+    $stmt->closeCursor();
+    return $image;
+}
+

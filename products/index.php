@@ -11,6 +11,8 @@ require_once '../model/accounts-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 require_once '../library/connections.php';
+require_once '../model/uploads-model.php';
+
 
 session_start();
 
@@ -231,5 +233,20 @@ switch ($action) {
         include '../view/product-detail.php';
 
     break;
+
+    case 'viewImage':
+        $product = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+        $img = getProdImage($prodId);
+
+        if(!count($info)) {
+            $message = "<p class='notice'> Sorry no information was found. </p> ";
+        } else {
+            $productInfoDisplay = BuildProductsInfoDisplay($product);
+        }
+
+        include '../view/product-detail.php';
+
+        break;
+
 
 }

@@ -29,7 +29,7 @@ if(isset($_SESSION['loggedin'])) {
                 echo $message;
                 }
             ?>
-        <form action="/acmeproject/accounts/" method="post">
+        <form action="/acmeproject/accounts/index.php?action=admin" method="post">
              <p>Email Address:</p>
             <input type="email" name="email" id="email"  <?php if(isset($email)){echo "value='$email'";} ?> required>
             <br />
@@ -41,7 +41,7 @@ if(isset($_SESSION['loggedin'])) {
             <input type="submit" name="submit">
             <!-- Add the action key - value pair -->
 
-            <input type="hidden" name="action" value="Login">
+            <input type="hidden" name="action" value="login">
 
             <?php echo $accReg; ?>
            

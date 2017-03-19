@@ -1,3 +1,4 @@
+
 <header>
 
 
@@ -13,7 +14,7 @@
                 }
 
                 else{
-                    echo '<a href="/acmeproject/index.php?action=login">Login</a>';
+                    echo '<a href="/acmeproject/accounts/index.php?action=login">Login</a>';
                 }
 
                 //if(isset($_SESSION['loggedin'])) {

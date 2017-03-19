@@ -2,24 +2,28 @@
 
 session_start();
 
-require_once '../library/connections.php';
-require_once '../library/functions.php';
 require_once '../model/acme-model.php';
+require_once '../library/connections.php';
 require_once '../model/products-model.php';
 require_once '../model/uploads-model.php';
+require_once '../library/functions.php';
+
+
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 }
 
-$navList = buildNav();
+$buildNav = buildNav();
+$accLog = '<a href="accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
+$accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
 
 /* * ****************************************************
 * Variables for use with the Image Upload Functionality
 * **************************************************** */
 // directory name where uploaded images are stored
-$image_dir = '/acmeproject/uploads/images';
+$image_dir = '/acmeproject/images/products';
 // The path is the full path from the server root
 $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
 

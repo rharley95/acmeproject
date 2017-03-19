@@ -1,9 +1,9 @@
 <?php
-if ( $_SESSION['loggedin'] == false){
-    header('location: /acmeproject');
-}
-
-?>
+//if ( $_SESSION['loggedin'] == false){
+//    header('location: /acmeproject');
+//}
+//
+//?>
 <!DOCTYPE html>
 <html>
 
@@ -23,6 +23,13 @@ if ( $_SESSION['loggedin'] == false){
 
     <section class="prod-main">
         <?php echo $prodInfoDisplay; ?>
+
+        <?php
+        if(isset($thumbnails)){
+            echo $thumbnails;
+        }
+        ?>
+
 
 
     </section>

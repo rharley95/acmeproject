@@ -15,7 +15,7 @@ function checkPassword($password){
     return preg_match($pattern, $password);
 }
 
-$categories = getCategories();
+//$categories = getCategories();
 
 function checkCat($category){
     $sanCategory = filter_var($category, FILTER_SANITIZE_STRING);
@@ -57,7 +57,7 @@ function buildProductsDisplay($products){
 function buildProductsInfoDisplay($product){
     $pd = '<section class="prod-info">';
     $pd .= '<div class="prod-img">';
-        $pd .= "<img src='/acmeproject/images/products/$product[invImage]' alt='Image of $product[invName] on Acme.com'>";
+        $pd .= "<img src='$product[imgpath]' alt='Image of $product[imgName] on Acme.com'>";
         $pd .= '</div>';
     $pd .= '<div class="prod-details">';
         $pd .= "<h1>$product[invName]</h1>";
@@ -110,7 +110,7 @@ function buildImageDisplay($imageArray) {
     foreach ($imageArray as $image) {
         $id .= '<li>';
         $id .= "<img src='$image[imgPath]' title='$image[invName] image on Acme.com' alt='$image[invName] image on Acme.com'>";
-        $id .= "<p><a href='/acme/uploads?action=delete&id=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
+        $id .= "<p><a href='/acmeproject/uploads?action=delete&id=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
         $id .= '</li>';
     }
     $id .= '</ul>';
@@ -127,53 +127,7 @@ function buildProductsSelect($products) {
     $prodList .= '</select>';
     return $prodList;
 }
-
-// Handles the file upload process and returns the path
-// The file path is stored into the database
-function uploadFile($name) {
-    // Gets the pathes, full and local directory. GLOBAL MAKES THE VARIABLE GLOBAL
-    global $image_dir, $image_dir_path;
-    if (isset($_FILES[$name])) {
-        // Gets the actual file name
-        $filename = $_FILES[$name]['name'];
-        if (empty($filename)) {
-            return;
-        }
-        // Get the file from the temp folder on the server
-        $source = $_FILES[$name]['tmp_name'];
-        // Sets the new path - images folder in this directory
-        $target = $image_dir_path . DIRECTORY_SEPARATOR . $filename;
-        // Moves the file to the target folder
-        move_uploaded_file($source, $target);
-        // Send file for further processing
-        processImage($image_dir_path, $filename);
-        // Sets the path for the image for Database storage
-        $filepath = $image_dir . DIRECTORY_SEPARATOR . $filename;
-        // Returns the path where the file is stored
-        return $filepath;
-    }
-
-
-    // Processes images by getting paths and
-// creating smaller versions of the image
-    function processImage($dir, $filename) {
-        // Set up the variables
-        $dir = $dir . DIRECTORY_SEPARATOR;
-
-        // Set up the image path
-        $image_path = $dir . DIRECTORY_SEPARATOR . $filename;
-
-        // Set up the thumbnail image path
-        $image_path_tn = $dir.makeThumbnailName($filename);
-
-        // Create a thumbnail image that's a maximum of 200 pixels square
-        resizeImage($image_path, $image_path_tn, 200, 200);
-
-        // Resize original to a maximum of 500 pixels square
-        resizeImage($image_path, $image_path, 500, 500);
-    }
-
-    // Checks and Resizes image
+// Checks and Resizes image
 function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) {
 
     // Get image type
@@ -247,6 +201,54 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     // Free any memory associated with the old image
     imagedestroy($old_image);
 }
+
+
+// Processes images by getting paths and
+// creating smaller versions of the image
+function processImage($dir, $filename) {
+    // Set up the variables
+    $dir = $dir . DIRECTORY_SEPARATOR;
+
+    // Set up the image path
+    $image_path = $dir . DIRECTORY_SEPARATOR . $filename;
+
+    // Set up the thumbnail image path
+    $image_path_tn = $dir.makeThumbnailName($filename);
+
+    // Create a thumbnail image that's a maximum of 200 pixels square
+    resizeImage($image_path, $image_path_tn, 200, 200);
+
+    // Resize original to a maximum of 500 pixels square
+    resizeImage($image_path, $image_path, 500, 500);
+}
+
+
+
+
+// Handles the file upload process and returns the path
+// The file path is stored into the database
+function uploadFile($name) {
+    // Gets the pathes, full and local directory. GLOBAL MAKES THE VARIABLE GLOBAL
+    global $image_dir, $image_dir_path;
+    if (isset($_FILES[$name])) {
+        // Gets the actual file name
+        $filename = $_FILES[$name]['name'];
+        if (empty($filename)) {
+            return;
+        }
+        // Get the file from the temp folder on the server
+        $source = $_FILES[$name]['tmp_name'];
+        // Sets the new path - images folder in this directory
+        $target = $image_dir_path . DIRECTORY_SEPARATOR . $filename;
+        // Moves the file to the target folder
+        move_uploaded_file($source, $target);
+        // Send file for further processing
+        processImage($image_dir_path, $filename);
+        // Sets the path for the image for Database storage
+        $filepath = $image_dir . DIRECTORY_SEPARATOR . $filename;
+        // Returns the path where the file is stored
+        return $filepath;
+    }
 
 
 

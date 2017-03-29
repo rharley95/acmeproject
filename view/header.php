@@ -5,8 +5,8 @@
 
 <img src="/acmeproject/images/logo.gif" alt="Logo" class="logo">
             <div class="toplinks">
-                <?php if(isset($cookieFirstname)){
-                    echo "<span>Welcome $cookieFirstname </span>";
+                <?php if(isset($_SESSION['clientData']['clientFirstname'])){
+                    echo "<a href='/acmeproject/accounts/index.php?action=admin'><span>Welcome " .  $_SESSION['clientData']['clientFirstname'] . "</span></a> ";
                 }
 
                  if(isset($_SESSION['loggedin'])){

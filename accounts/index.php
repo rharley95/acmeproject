@@ -19,21 +19,11 @@ $categories = getCategories();
 $buildNav = buildNav();
 
 
-//$navList = '<ul>';
-//$navList .= "<li><a href='/acmeproject/index.php' title='View the Acme home page'>Home</a></li>";
-//foreach ($categories as $category) {
-//    $navList .= "<li><a href='/acmeproject/index.php?action=$category[categoryName]' title='View our $category[categoryName] product line'>$category[categoryName]</a></li>";
-//}
-//$navList .= '</ul>';
 
-$accLog = '<a href="?action=login"> <img src="images/account.gif" alt="suitcase login">My Account</a>';
-$accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
-//
-//echo $navList;
-//exit;
-//var_dump($categories);
-//exit;
+$buildNav = buildNav();
 
+$accLog = '<a href="/acmeproject/accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
+$accReg = '<a href="/acmeproject/accounts/index.php?action=register"><button type="button">Register</button></a>';
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
@@ -43,7 +33,6 @@ if ($action == NULL) {
         exit;
     }
 }
-
 
 switch ($action) {
 //    case 'log':
@@ -63,11 +52,7 @@ switch ($action) {
         $existingEmail = checkExistingEmail($email);
 
 
-        if($existingEmail){
-            $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
-            include '../view/login.php';
-            exit;
-        }
+
 
 
 
@@ -81,6 +66,11 @@ switch ($action) {
             include '../view/registration.php';
             exit;
         } else {
+            if($existingEmail){
+                $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
+                include '../view/login.php';
+                exit;
+            }
 
             // Hash the checked passcode
             $password = password_hash($password, PASSWORD_DEFAULT);
@@ -164,95 +154,94 @@ switch ($action) {
     case 'update':
 
         $clientId = $_SESSION['clientData']['clientId'];
+        $firstname = $_SESSION['clientData']['clientFirstname'];
+        $lastname = $_SESSION['clientData']['clientLastname'];
+        $email = $_SESSION['clientData']['clientEmail'];
 
+        $clientInfo = getClientInfo($clientId);
+
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
         $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email');
+
+
+        //Check for existing email
+        $existingEmail= checkExistingEmail($email);
+
+        if ($existingEmail !== $_SESSION['clientData']['clientEmail']) {
+
+            if ($existingEmail == 1) {
+                $message = "<p>An account is already associated with this email.<br> Please choose a different email or <a href='/acmeproject/accounts/index.php?action=login' title='login to existing account'>Login</a> with this email</p>";
+                include '../view/admin.php';
+                exit;
+            }
+        }
+
+        if (empty($firstname) || empty($lastname) || empty($email)) {
+            $message = '<p>Please provide information you would like to change.</p>';
+            include '../view/client-update.php';
+            exit;
+        } else {
+            $updateClient = updateClient($firstname, $lastname, $email, $clientId);
+
+
+
+// Check and report the result
+            if ($updateClient) {
+                $clientData = getClient($email);
+                array_pop($clientData);
+                $_SESSION['clientData'] = $clientData;
+                $message = "<p>$firstname, you have successfully updated your account information.</p>";
+                $_SESSION['message'] = $message;
+                setcookie('firstname', $firstname, strtotime('+1 year'), '/');
+                    header('location: /acmeproject/accounts/index.php?action=update');
+                    exit;
+
+            }
+
+
+
+            else {
+                $message = "<p>Sorry, your client information did not update.</p>";
+                include '../view/client-update.php';
+                exit;
+            }
+
+
+        }
+            break;
+
+    case 'updatePassword':
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-        $email = $_SESSION['clientData']['clientEmail'];
-        $firstname = $_SESSION['clientData']['clientFirstname'];
-        $lastname = $_SESSION['clientData']['clientLastname'];
-        $password = $_SESSION['loggedin']['clientData']['clientPassword'];
-
-        $clientData = getClient($email);
+        $checkPassword = checkPassword($password);
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
 
-        //*check for emptiness*/
-
-        if (empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
-            $message = '<p>Please provide information for all empty form fields.</p>';
+        if (empty($checkPassword)) {
+            $message = '<p>Please provide a password change.</p>';
             include '../view/client-update.php';
             exit;
         }
         else {
+            $updatePassword = updatePassword($password, $clientId);
+            var_dump($updatePassword);
 
-            $updateclient = updateClient($firstname, $lastname, $email, $password, $clientId);
-
-            $hashCheck = password_verify($password, $clientData['clientPassword']);
-            // If the hashes don't match create an error
-            // and return to the login view
-            if (!$hashCheck) {
-                $message = '<p class="notice">Please check your password and try again.</p>';
-                include '../view/login.php';
-                exit;
-            }
-            /*check difference in email*/
-
-
-            $email = checkEmail($email);
-            $checkPassword = checkPassword($password);
-            $existingEmail = checkExistingEmail($email);
-
-            /*-check the new email, function below*/
-            // Check for existing email address in the table
-            if($existingEmail){
-                /* errors, send back to fix with message*/
-                $message = '<p class="notice">Sorry, that email is taken. Please pick a new one.</p>';
-                header ('location: ../view/client-update.php');
-                exit;
             }
 
-// Check and report the result
-            /* attempt update through sql command (model) */
-            /*let them know of result*/
-            if ($updateclient) {
-                $message = "<p>Thanks for updating. ";
-                $_SESSION['message'] = $message;
-                header('location: /acmeproject/accounts/index.php?action=update');
-                exit;
-            } else {
-                $message = "<p>Sorry, something happened..</p>";
-                include '../view/client-update.php';
-                exit;
-            }
-            break;
-
+        if ($updatePassword) {
+            $message = 'Succeeeessss!';
+            include '../view/admin.php';
+            exit;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        else {
+            $message = 'YOU FAILED, AND YOU SMELL LIKE FEET';
+            include '../view/admin.php';
+            exit;
+        }
+        break;
 
 
 

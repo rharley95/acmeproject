@@ -44,7 +44,7 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
     <h1><?php if(isset($prodInfo['invName'])){ echo "Delete $prodInfo[invName]";} ?></h1>
     <p>Confirm Product Deletion. The delete is permanent.</p>
 
-    <form method="post" action="/acmeproject/index.php?action=products">
+    <form method="post" action="/acmeproject/products/index.php?action=delete">
         <?php
         if (isset($message)) {
             echo $message;

@@ -43,7 +43,7 @@ $catList .= '</select>';
 
     <h1><?php if(isset($prodInfo['invName'])){ echo "Modify $prodInfo[invName] ";} elseif(isset($prodName)) { echo $prodName; }?></h1>
 
-    <form method="post" action="/acmeproject/index.php?action=products">
+    <form method="post" action="/acmeproject/products/index.php">
         <?php
         if (isset($message)) {
             echo $message;

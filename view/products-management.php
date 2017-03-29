@@ -27,9 +27,9 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
         <center>
         <h1>Product Management</h1>
         
-        <a href="/acmeproject/index.php?action=categories"> Add Categories </a>
+        <a href="/acmeproject/categories/index.php?action=categories"> Add Categories </a>
         <br/>
-        <a href="/acmeproject/products/index.php"> Add To Inventory </a>
+        <a href="/acmeproject/products/index.php?action=register"> Add To Inventory </a>
 
             <?php
             if (isset($message)) {

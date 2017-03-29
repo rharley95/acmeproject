@@ -45,7 +45,7 @@ function buildProductsDisplay($products){
     $pd = '<ul id="prod-display">';
     foreach ($products as $product) {
         $pd .= '<li>';
-        $pd .= "<img src='/acmeproject/images/products/$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'>";
+        $pd .= "<img src='$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'>";
         $pd .= "<h2><a href='/acmeproject/products/index.php?action=getInfo&type=$product[invId]'>$product[invName]</a></h2>";
         $pd .= "<span>$product[invPrice]</span>";
         $pd .= '</li>';
@@ -57,7 +57,7 @@ function buildProductsDisplay($products){
 function buildProductsInfoDisplay($product){
     $pd = '<section class="prod-info">';
     $pd .= '<div class="prod-img">';
-        $pd .= "<img src='$product[imgpath]' alt='Image of $product[imgName] on Acme.com'>";
+        $pd .= "<img src='$product[invImage]' alt='Image of $product[invName] on Acme.com'>";
         $pd .= '</div>';
     $pd .= '<div class="prod-details">';
         $pd .= "<h1>$product[invName]</h1>";
@@ -87,6 +87,20 @@ function buildProductsInfoDisplay($product){
 
     return $pd;
 }
+function buildThumbDisplay($thumbs){
+// Build images display for image management view
+        $tm = '<ul id="image-display">';
+    if (isset($thumbs)){
+            $tm .= '<li>';
+            $tm .= "<img src='$thumbs[imgPath]' title='$thumbs[imgName] image on Acme.com' alt='$thumbs[imgName] image on Acme.com'>";
+            $tm .= '</li>';
+        }
+        else {
+        echo 'No images found.';
+        }
+        $tm .= '</ul>';
+        return $tm;
+    }
 
 
 
@@ -248,6 +262,14 @@ function uploadFile($name) {
         $filepath = $image_dir . DIRECTORY_SEPARATOR . $filename;
         // Returns the path where the file is stored
         return $filepath;
+    }
+
+
+
+    function buildReviewReg() {
+
+
+
     }
 
 

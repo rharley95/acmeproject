@@ -23,8 +23,8 @@ session_start();
 
 $buildNav = buildNav();
 
-$accLog = '<a href="accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
-$accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
+$accLog = '<a href="/acmeproject/accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
+$accReg = '<a href="/acmeproject/accounts/index.php?action=register"><button type="button">Register</button></a>';
 //
 //echo $navList;
 //exit;
@@ -55,7 +55,8 @@ if ($action == NULL) {
             case 'login':
                 include 'view/login.php';
                 break;
-            case 'registration':
+            case 'register':
+
                 include 'view/registration.php';
                 break;
 

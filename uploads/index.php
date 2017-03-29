@@ -16,9 +16,9 @@ if ($action == NULL) {
 }
 
 $buildNav = buildNav();
-$accLog = '<a href="accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
-$accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
 
+$accLog = '<a href="/acmeproject/accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
+$accReg = '<a href="/acmeproject/accounts/index.php?action=registration"><button type="button">Register</button></a>';
 /* * ****************************************************
 * Variables for use with the Image Upload Functionality
 * **************************************************** */

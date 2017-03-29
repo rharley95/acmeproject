@@ -22,7 +22,7 @@
                 echo $message;
                     }
             ?>
-            <form method="post" action="/acmeproject/accounts/index.php">
+            <form method="post" action="/acmeproject/accounts/index.php?action=register">
                 <p> First Name:</p>
                 <input name="firstname" id="firstname" <?php if(isset($firstname)){echo "value='$firstname'";} ?> required>
                 <p>Last Name:</p>

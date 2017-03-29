@@ -23,12 +23,9 @@
 
     <section class="prod-main">
         <?php echo $prodInfoDisplay; ?>
+        <?php echo $thumbDisplay; ?>
 
-        <?php
-        if(isset($thumbnails)){
-            echo $thumbnails;
-        }
-        ?>
+
 
 
 

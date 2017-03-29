@@ -30,6 +30,11 @@ if ( $_SESSION['loggedin'] == false){
                 echo "<span>Welcome $cookieFirstname</span>";
             } ?>
         </h1>
+        <?php
+        if (isset($message)) {
+            echo $message;
+        }
+        ?>
         <p>This is the super awesome admin page yas.</p>
 
         <ul>
@@ -43,10 +48,10 @@ if ( $_SESSION['loggedin'] == false){
         echo '</br>';
         echo '<a href="/acmeproject/accounts/index.php?action=update"> Update </a>';
         ?>
-
+    </br>
         <?php
         if ( $_SESSION['clientData']['clientLevel'] >= 2){
-            echo '<a href="/acmeproject/products/index.php?action=products"> Register Products </a>';
+            echo '<a href="/acmeproject/products/index.php?action=prod-list"> Register Products </a>';
 
         }
 

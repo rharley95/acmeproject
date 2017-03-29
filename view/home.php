@@ -18,9 +18,7 @@
         <section class="content">
 
 
-            <?php if(isset($cookieFirstname)){
-                echo "<span>Welcome $cookieFirstname</span>";
-            } ?>
+
 
             <h1>Welcome to Acme!</h1>
             <section class="banner">

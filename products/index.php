@@ -20,10 +20,8 @@ session_start();
 $categories = getCategories();
 $buildNav = buildNav();
 
-$accLog = '<a href="?action=login"> <img src="/../acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
-$accReg = '<a href="?action=registration"><button type="button">Register</button></a>';
-
-
+$accLog = '<a href="/acmeproject/accounts/index.php?action=admin"> <img src="/acmeproject/images/account.gif" alt="suitcase login">My Account</a>';
+$accReg = '<a href="/acmeproject/accounts/index.php?action=registration"><button type="button">Register</button></a>';
 
 
 $action = filter_input(INPUT_POST, 'action');
@@ -106,6 +104,7 @@ switch ($action) {
 
             $regOutcome = regInventory($invname, $invdesc, $invprice, $invstock, $invsize, $invloc, $invcat, $invvendor, $invstyle, $invweight);
 
+
 // Check and report the result
             if ($regOutcome === 1) {
                 $message = "<p>Thanks for registering $invname. ";
@@ -120,7 +119,7 @@ switch ($action) {
             }
         }
 
-    case 'products':
+    case 'prod-list':
         $products = getProductBasics();
         if(count($products) > 0){
             $prodList = '<table>';
@@ -130,8 +129,8 @@ switch ($action) {
             $prodList .= '<tbody>';
             foreach ($products as $product) {
                 $prodList .= "<tr><td>$product[invName]</td>";
-                $prodList .= "<td><a href='/acmeproject/index.php?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
-                $prodList .= "<td><a href='/acmeproject/index.php?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
+                $prodList .= "<td><a href='/acmeproject/products/index.php?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
+                $prodList .= "<td><a href='/acmeproject/products/index.php?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";
             }
             $prodList .= '</tbody></table>';
         } else {
@@ -168,7 +167,7 @@ switch ($action) {
             if ($updateResult) {
                 $message = "<p>Thanks for updating $invname. ";
                 $_SESSION['message'] = $message;
-                header('location: /acmeproject/index.php?action=products');
+                header('location: /acmeproject/products/index.php?action=prod-list');
                 exit;
             } else {
                 $message = "<p>Sorry, your product did not update.</p>";
@@ -198,12 +197,12 @@ switch ($action) {
         if ($deleteResult) {
             $message = "<p class='notice'>Congratulations, $invname was successfully deleted.</p>";
             $_SESSION['message'] = $message;
-            header('location: /acmeproject/products/');
+            header('location: /acmeproject/products/index.php?action=prod-list');
             exit;
         } else {
             $message = "<p class='notice'>Error: $invname was not deleted.</p>";
             $_SESSION['message'] = $message;
-            header('location: /acmeproject/products/');
+            header('location: /acmeproject/products/index.php?action=prod-list');
             exit;
         }
         break;
@@ -223,30 +222,19 @@ switch ($action) {
     case 'getInfo':
         $product = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING); /*grabbing product id into product*/
         $info = getProductInfo($product);
+        $thumbs = getProdThumb($product);
 
         if(!count($info)) {
             $message = "<p class='notice'> Sorry no information was found. </p> ";
         } else {
             $prodInfoDisplay = buildProductsInfoDisplay($info);
+            $thumbDisplay = buildThumbDisplay($thumbs);
         }
 
         include '../view/product-detail.php';
 
     break;
 
-    case 'viewImage':
-        $product = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
-        $img = getProdImage($prodId);
-
-        if(!count($info)) {
-            $message = "<p class='notice'> Sorry no information was found. </p> ";
-        } else {
-            $productInfoDisplay = BuildProductsInfoDisplay($product);
-        }
-
-        include '../view/product-detail.php';
-
-        break;
 
 
 }

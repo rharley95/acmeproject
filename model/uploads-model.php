@@ -69,14 +69,29 @@ function checkExistingImage($name){
     return $imageMatch;
 }
 
-function getProdImage($prodId) {
-    $db = acme();
-    $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invName FROM Images JOIN inventory ON Images.invId = inventory.invId';
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':invId', $invId);
-    $stmt->execute();
-    $image = $stmt->fetch();
-    $stmt->closeCursor();
-    return $image;
-}
 
+
+
+//function getProdImage($prodId) {
+//    $db = acme();
+////    $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invName FROM Images JOIN inventory ON Images.invId = inventory.invId';
+//    $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invName FROM images WHERE invId = :prodId';
+//    $stmt = $db->prepare($sql);
+//    $stmt->bindValue(':invId', $prodId);
+//    $stmt->execute();
+//    $image = $stmt->fetch();
+//    $stmt->closeCursor();
+//    return $image;
+//}
+
+
+function getProdThumb($product) {
+    $db = acme();
+    $sql = "SELECT imgPath, imgName FROM images WHERE invId = :prodId AND imgName LIKE '%-tn%'" ;
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':prodId', $product);
+    $stmt->execute();
+    $thumbs = $stmt->fetch();
+    $stmt->closeCursor();
+    return $thumbs;
+}

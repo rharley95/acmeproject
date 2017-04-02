@@ -39,7 +39,7 @@ if ( $_SESSION['loggedin'] == false){
                 <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['clientData']['clientLastname']){ echo $_SESSION['clientData']['clientLastname'];} ?>">
                 <p>Email Address:</p>
             <input type="email" name="email" id="email"  value="<?php if( $_SESSION['clientData']['clientEmail']){ echo $_SESSION['clientData']['clientEmail']; } ?>">
-            </br>
+            <br />
                 <input type="submit" name="submit" id="regbtn" value="update">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="clientId" value="<?php if(isset($_SESSION['clientData']['clientId'])){ echo $_SESSION['clientData']['clientId'];} ?>">

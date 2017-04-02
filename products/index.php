@@ -12,6 +12,8 @@ require_once '../model/accounts-model.php';
 require_once '../library/functions.php';
 require_once '../library/connections.php';
 require_once '../model/uploads-model.php';
+require_once '../model/reviews-model.php';
+
 
 
 session_start();
@@ -234,7 +236,6 @@ switch ($action) {
         include '../view/product-detail.php';
 
     break;
-
 
 
 }

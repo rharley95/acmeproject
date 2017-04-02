@@ -36,34 +36,20 @@ if ($action == NULL) {
 
 switch ($action) {
     case 'new':
-// echo 'You are in the register case statement.';
+ echo 'You are in the register case statement.';
+        $clientId = $_SESSION['clientData']['clientId'];
+        $prodId = getProductId($prodId);
+
+        $prodId = filter_input(INPUT_GET, 'prodId', FILTER_VALIDATE_INT);
         $reviewText = filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_STRING);
-        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
-        $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
-        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_STRING);
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_STRING);
 
-// Validate to check if form fields are empty
-        if (empty($reviewText)) {
-            $message = '<p>Please provide a review for the product.</p>';
-            include '../view/products.php';
-            exit;
-        } else {
-            $regReview = regReview($reviewText, $reviewId, $clientId, $invId);
+        $regReview = regReview($reviewText, $clientId, $prodId);
 
+        include '/../views/product-detail.php';
+        break;
 
-// Check and report the result
-            if ($regReview === 1) {
-                $message = "<p>Thanks for giving us feedback! ";
-                include '../view/product-detail.php';
-                exit;
-            } else {
-                $message = "<p>Sorry, your review did not register.</p>";
-                include '../view/product-detail.php';
-                exit;
-
-                break;
-            }
-        }
 
 }
 

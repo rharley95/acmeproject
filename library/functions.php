@@ -266,13 +266,6 @@ function uploadFile($name) {
 
 
 
-    function buildReviewReg() {
-
-
-
-    }
-
-
 
 
 }

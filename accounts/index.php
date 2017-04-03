@@ -9,6 +9,7 @@ require_once '../library/connections.php';
 require_once '../model/acme-model.php';
 // Get the accounts model
 require_once '../model/accounts-model.php';
+require_once '../model/reviews-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 
@@ -148,6 +149,25 @@ switch ($action) {
         exit;
 
     case 'admin':
+        $clientId = $_SESSION['clientData']['clientId'];
+        $reviews = getClientreviews($clientId);
+
+        if(count($reviews) > 0){
+            $revList = '<table>';
+            $revList .= '<thead>';
+            $revList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            $revList .= '</thead>';
+            $revList .= '<tbody>';
+            foreach ($reviews as $review) {
+                $revList .= "<tr><td>$review[reviewId]</td>";
+                $revList .= "<td><a href='/acmeproject/reviews/index.php?action=mod&id=$review[reviewId]' title='Click to modify'>Modify</a></td>";
+                $revList .= "<td><a href='/acmeproject/reviews/index.php?action=del&id=$review[reviewId]' title='Click to delete'>Delete</a></td></tr>";
+            }
+            $revList .= '</tbody></table>';
+        } else {
+            $message = '<p class="notify">Sorry, no products were returned.</p>';
+        }
+
         include '../view/admin.php';
         break;
 

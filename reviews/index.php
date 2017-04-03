@@ -6,16 +6,15 @@
  * Time: 11:50 AM
  */
 
+session_start();
+
+require_once '../library/connections.php';
+require_once '../library/functions.php';
 require_once '../model/acme-model.php';
 require_once '../model/products-model.php';
-require_once '../model/accounts-model.php';
-// Get the functions library
-require_once '../library/functions.php';
-require_once '../library/connections.php';
-require_once '../model/uploads-model.php';
 require_once '../model/reviews-model.php';
 
-session_start();
+
 
 // Get the accounts model
 $categories = getCategories();
@@ -36,20 +35,25 @@ if ($action == NULL) {
 
 switch ($action) {
     case 'new':
- echo 'You are in the register case statement.';
-        $clientId = $_SESSION['clientData']['clientId'];
-        $prodId = getProductId($prodId);
 
-        $prodId = filter_input(INPUT_GET, 'prodId', FILTER_VALIDATE_INT);
+
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
         $reviewText = filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_STRING);
-        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_STRING);
-        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
 
-        $regReview = regReview($reviewText, $clientId, $prodId);
 
-        include '/../views/product-detail.php';
+        if (empty($reviewText)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/product-detail.php';
+            exit;
+        } else {
+            $regRev = regReview($reviewText, $prodId, $clientId);
+            return $regRev;
+
+        }
+
+        include '../views/product-detail.php';
         break;
-
 
 }
 

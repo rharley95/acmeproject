@@ -224,13 +224,16 @@ switch ($action) {
     case 'getInfo':
         $product = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING); /*grabbing product id into product*/
         $info = getProductInfo($product);
+        $review = getReviews($product);
         $thumbs = getProdThumb($product);
+
 
         if(!count($info)) {
             $message = "<p class='notice'> Sorry no information was found. </p> ";
         } else {
             $prodInfoDisplay = buildProductsInfoDisplay($info);
             $thumbDisplay = buildThumbDisplay($thumbs);
+            $reviewInfo = buildReviews($review);
         }
 
         include '../view/product-detail.php';

@@ -6,6 +6,17 @@
  * Time: 8:48 AM
  */
 
+
+if ( $_SESSION['clientData']['clientLevel'] < 2){
+    header('location: /acmeproject');
+
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+    }
+}
+
+
+
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
 }

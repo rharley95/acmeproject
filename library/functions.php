@@ -102,6 +102,22 @@ function buildThumbDisplay($thumbs){
         return $tm;
     }
 
+    function buildReviews($review){
+
+        $pd = '<ul id="prod-review">';
+        foreach ($review as $reviews) {
+            $pd .= '<li>';
+            $pd .= "<h2> $reviews[reviewText] </h2>";
+            $pd .= '</li>';
+        }
+        $pd .= '</ul>';
+
+        return $pd;
+
+    }
+
+
+
 
 
 /* * ********************************

@@ -44,7 +44,10 @@ if ( $_SESSION['loggedin'] == false){
             <li><strong>Level:</strong> <?php echo $_SESSION['clientData']['clientLevel']; ?></li>
 
         </ul>
+
         <?php
+
+
         echo '</br>';
         echo '<a href="/acmeproject/accounts/index.php?action=update"> Update </a>';
         ?>
@@ -53,6 +56,10 @@ if ( $_SESSION['loggedin'] == false){
         if ( $_SESSION['clientData']['clientLevel'] >= 2){
             echo '<a href="/acmeproject/products/index.php?action=prod-list"> Register Products </a>';
 
+        }
+
+        if (isset($revList)) {
+        echo $revList;
         }
 
         ?>

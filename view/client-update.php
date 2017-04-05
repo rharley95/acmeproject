@@ -34,11 +34,11 @@ if ( $_SESSION['loggedin'] == false){
             <form method="post" action="/acmeproject/accounts/index.php?action=update">
                 <h2>Account Update</h2>
                 <p> First Name:</p>
-                <input name="firstname" id="firstname" value="<?php if(isset($_SESSION['clientData']['clientFirstname'])){ echo $_SESSION['clientData']['clientFirstname'];}?>">
+                <input name="firstname" id="firstname" value="<?php if(isset($_SESSION['clientData']['clientFirstname'])){ echo $_SESSION['clientData']['clientFirstname'];}?>" required>
                 <p>Last Name:</p>
-                <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['clientData']['clientLastname']){ echo $_SESSION['clientData']['clientLastname'];} ?>">
+                <input type="text" name="lastname" id="lastname"  value="<?php if( $_SESSION['clientData']['clientLastname']){ echo $_SESSION['clientData']['clientLastname'];} ?>" required>
                 <p>Email Address:</p>
-            <input type="email" name="email" id="email"  value="<?php if( $_SESSION['clientData']['clientEmail']){ echo $_SESSION['clientData']['clientEmail']; } ?>">
+            <input type="email" name="email" id="email"  value="<?php if( $_SESSION['clientData']['clientEmail']){ echo $_SESSION['clientData']['clientEmail']; } ?>" required>
             <br />
                 <input type="submit" name="submit" id="regbtn" value="update">
                 <input type="hidden" name="action" value="update">
@@ -56,7 +56,7 @@ if ( $_SESSION['loggedin'] == false){
             <h4>Password:</h4>
                 <label for="password">New password:</label>
                 <span>Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
-                <br /><input type="password" name="password" id="password" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+                <br /><input type="password" name="password" id="password"  pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
                 <br />
                 <input type="hidden" name="clientId" value="<?php if(isset($_SESSION['clientData']['clientId'])){ echo $_SESSION['clientData']['clientId'];} ?>">
                 <input type="submit" name="submit" id="regbtn" value="update">

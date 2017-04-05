@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecb45976-6153-468f-9f03-e5758ee06e0b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/rev-delete.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/rev-update.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/products/composition1-tn.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/products/composition1.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/products/anvil.png" afterPath="$PROJECT_DIR$/images/products/anvil.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/products/no-image.png" afterPath="$PROJECT_DIR$/images/products/no-image.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/products/rocket.png" afterPath="$PROJECT_DIR$/images/products/rocket.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accounts/index.php" afterPath="$PROJECT_DIR$/accounts/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/functions.php" afterPath="$PROJECT_DIR$/library/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/reviews-model.php" afterPath="$PROJECT_DIR$/model/reviews-model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reviews/index.php" afterPath="$PROJECT_DIR$/reviews/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/styles.css" afterPath="$PROJECT_DIR$/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/admin.php" afterPath="$PROJECT_DIR$/view/admin.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/client-update.php" afterPath="$PROJECT_DIR$/view/client-update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/product-detail.php" afterPath="$PROJECT_DIR$/view/product-detail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/products-management.php" afterPath="$PROJECT_DIR$/view/products-management.php" />
     </list>
     <ignored path="acmeproject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,7 +34,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/accounts/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
@@ -59,6 +43,19 @@
                 <marker date="1491405549000" expanded="true" signature="5317:5323" ph=" " />
                 <marker date="1491405549000" expanded="true" signature="5332:5338" ph=" " />
                 <marker date="1491405549000" expanded="true" signature="8257:8259" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client-update.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/view/client-update.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="227">
+              <caret line="40" column="174" lean-forward="false" selection-start-line="40" selection-start-column="174" selection-end-line="40" selection-end-column="174" />
+              <folding>
+                <marker date="1491406144000" expanded="true" signature="307:328" ph="..." />
+                <marker date="1491406144000" expanded="true" signature="691:840" ph="..." />
               </folding>
             </state>
           </provider>
@@ -89,16 +86,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
               <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rev-update.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/rev-update.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="47" column="95" lean-forward="false" selection-start-line="47" selection-start-column="95" selection-end-line="47" selection-end-column="95" />
               <folding />
             </state>
           </provider>
@@ -222,7 +209,6 @@
         <option value="$PROJECT_DIR$/products/index.php" />
         <option value="$PROJECT_DIR$/model/reviews-model.php" />
         <option value="$PROJECT_DIR$/reviews/index.php" />
-        <option value="$PROJECT_DIR$/view/client-update.php" />
         <option value="$PROJECT_DIR$/view/admin.php" />
         <option value="$PROJECT_DIR$/view/rev-update.php" />
         <option value="$PROJECT_DIR$/view/rev-delete.php" />
@@ -231,6 +217,7 @@
         <option value="$PROJECT_DIR$/view/product-detail.php" />
         <option value="$PROJECT_DIR$/styles.css" />
         <option value="$PROJECT_DIR$/accounts/index.php" />
+        <option value="$PROJECT_DIR$/view/client-update.php" />
       </list>
     </option>
   </component>
@@ -506,12 +493,12 @@
       <workItem from="1489882000816" duration="37865000" />
       <workItem from="1490795123450" duration="16999000" />
       <workItem from="1491023788272" duration="775000" />
-      <workItem from="1491096663054" duration="30044000" />
+      <workItem from="1491096663054" duration="30213000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216442000" />
+    <option name="totallyTimeSpent" value="216611000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -524,13 +511,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15069444" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5659204" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5659204" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -703,8 +690,8 @@
         <state relative-caret-position="630">
           <caret line="42" column="97" lean-forward="false" selection-start-line="42" selection-start-column="97" selection-end-line="42" selection-end-column="97" />
           <folding>
-            <marker date="1491402699000" expanded="true" signature="307:328" ph="..." />
-            <marker date="1491402699000" expanded="true" signature="691:840" ph="..." />
+            <marker date="1491406144000" expanded="true" signature="307:328" ph="..." />
+            <marker date="1491406144000" expanded="true" signature="691:840" ph="..." />
           </folding>
         </state>
       </provider>
@@ -947,17 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/client-update.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="77" column="37" lean-forward="false" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
-          <folding>
-            <marker date="1491402699000" expanded="true" signature="307:328" ph="..." />
-            <marker date="1491402699000" expanded="true" signature="691:840" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reviews/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
@@ -1056,6 +1032,17 @@
             <marker date="1491405549000" expanded="true" signature="5317:5323" ph=" " />
             <marker date="1491405549000" expanded="true" signature="5332:5338" ph=" " />
             <marker date="1491405549000" expanded="true" signature="8257:8259" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/client-update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="40" column="174" lean-forward="false" selection-start-line="40" selection-start-column="174" selection-end-line="40" selection-end-column="174" />
+          <folding>
+            <marker date="1491406144000" expanded="true" signature="307:328" ph="..." />
+            <marker date="1491406144000" expanded="true" signature="691:840" ph="..." />
           </folding>
         </state>
       </provider>

@@ -27,9 +27,9 @@ if ( $_SESSION['loggedin'] == false){
         <section class="form">
             <h1>Update User</h1>
             <?php
-                if (isset($message)) {
-                echo $message;
-                    }
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+            }
             ?>
             <form method="post" action="/acmeproject/accounts/index.php?action=update">
                 <h2>Account Update</h2>
@@ -75,3 +75,4 @@ if ( $_SESSION['loggedin'] == false){
 </body>
 
 </html>
+<?php unset($_SESSION['message']); ?>

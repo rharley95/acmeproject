@@ -64,22 +64,22 @@ function buildProductsInfoDisplay($product){
     $pd .= "<hr>";
     $pd .= "<h3>Description</h3>";
     $pd .= "<span>$product[invDescription]</span>";
-    $pd .= "<br>";
+    $pd .= "<br/>";
     $pd .= "<h3>Price</h3>";
         $pd .= "<span>$$product[invPrice]</span>";
-    $pd .= "<br>";
+    $pd .= "<br/>";
     $pd .= "<h3>Size</h3>";
     $pd .= "<span>$product[invSize]</span>";
-    $pd .= "<br>";
+    $pd .= "<br/>";
     $pd .= "<h3>Weight</h3>";
     $pd .= "<span>$product[invWeight]</span>";
-    $pd .= "<br>";
+    $pd .= "<br/>";
     $pd .= "<h3>Location</h3>";
     $pd .= "<span>$product[invLocation]</span>";
-    $pd .= "<br>";
+    $pd .= "<br/>";
     $pd .= "<h3>Vendor</h3>";
     $pd .= "<span>$product[invVendor]</span>";
-    $pd .= "<br>";
+    $pd .= "<br/>";
     $pd .= "<h3>Style</h3>";
     $pd .= "<span>$product[invStyle]</span>";
     $pd .= '</div>';
@@ -104,13 +104,12 @@ function buildThumbDisplay($thumbs){
 
     function buildReviews($review){
 
-        $pd = '<ul id="prod-review">';
+        $pd = '<section id="prod-review">';
         foreach ($review as $reviews) {
-            $pd .= '<li>';
-            $pd .= "<h2> $reviews[reviewText] </h2>";
-            $pd .= '</li>';
+            $pd .= "<span> $reviews[clientFirstname] @ </span> $reviews[reviewDate]";
+            $pd .= "<p> $reviews[reviewText] </p>";
         }
-        $pd .= '</ul>';
+        $pd .= '</section>';
 
         return $pd;
 

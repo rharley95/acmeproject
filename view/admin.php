@@ -25,17 +25,12 @@ if ( $_SESSION['loggedin'] == false){
     <section class="content">
 
 
-        <h1>
-            <?php if(isset($cookieFirstname)){
-                echo "<span>Welcome $cookieFirstname</span>";
-            } ?>
-        </h1>
         <?php
-        if (isset($message)) {
-            echo $message;
+        if (isset($_SESSION['message'])) {
+            echo $_SESSION['message'];
         }
         ?>
-        <p>This is the super awesome admin page yas.</p>
+        <h1>Welcome to your admin page.</h1>
 
         <ul>
             <li><strong>Name:</strong> <?php echo $_SESSION['clientData']['clientFirstname']; ?></li>
@@ -44,25 +39,28 @@ if ( $_SESSION['loggedin'] == false){
             <li><strong>Level:</strong> <?php echo $_SESSION['clientData']['clientLevel']; ?></li>
 
         </ul>
-
         <?php
 
 
-        echo '</br>';
-        echo '<a href="/acmeproject/accounts/index.php?action=update"> Update </a>';
-        ?>
-    </br>
+        echo '<br/>';
+        echo '<a href="/acmeproject/accounts/index.php?action=update"> Update your account information. </a>';
+        echo '<br/>';
+?>
         <?php
         if ( $_SESSION['clientData']['clientLevel'] >= 2){
             echo '<a href="/acmeproject/products/index.php?action=prod-list"> Register Products </a>';
 
         }
 
-        if (isset($revList)) {
-        echo $revList;
-        }
-
         ?>
+<hr>
+        <?php if (isset($revList)) {
+            echo $revList;
+        }
+        ?>
+    <br/>
+
+
 
 
 
@@ -80,3 +78,4 @@ if ( $_SESSION['loggedin'] == false){
 
 </html>
 
+<?php unset($_SESSION['message']); ?>

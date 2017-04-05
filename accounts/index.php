@@ -136,7 +136,7 @@ switch ($action) {
         // Store the array into the session
         $_SESSION['clientData'] = $clientData;
         // Send them to the admin view
-        include '../view/admin.php';
+        header('location: /acmeproject/accounts/index.php?action=admin');
         exit;
         break;
 
@@ -153,19 +153,23 @@ switch ($action) {
         $reviews = getClientreviews($clientId);
 
         if(count($reviews) > 0){
-            $revList = '<table>';
+            $revList = '<h2>Reviews made by client</h2>';
+            $revList .= '<table>';
             $revList .= '<thead>';
-            $revList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            $revList .= '<tr><th><span>Reviews by product:</span></th><th><tr>&nbsp;</tr><tr>&nbsp;</tr></tr></th>';
             $revList .= '</thead>';
             $revList .= '<tbody>';
             foreach ($reviews as $review) {
-                $revList .= "<tr><td>$review[reviewId]</td>";
+                $revList .= "<tr><td>$review[invName]</td>";
+                $revList .= "<td>$review[reviewText]</td>";
                 $revList .= "<td><a href='/acmeproject/reviews/index.php?action=mod&id=$review[reviewId]' title='Click to modify'>Modify</a></td>";
                 $revList .= "<td><a href='/acmeproject/reviews/index.php?action=del&id=$review[reviewId]' title='Click to delete'>Delete</a></td></tr>";
             }
             $revList .= '</tbody></table>';
+
         } else {
-            $message = '<p class="notify">Sorry, no products were returned.</p>';
+            $message = '<p class="notify">Sorry, no reviews have been made by the client.</p>';
+
         }
 
         include '../view/admin.php';
@@ -193,6 +197,7 @@ switch ($action) {
 
             if ($existingEmail == 1) {
                 $message = "<p>An account is already associated with this email.<br> Please choose a different email or <a href='/acmeproject/accounts/index.php?action=login' title='login to existing account'>Login</a> with this email</p>";
+                $_SESSION['message'] = $message;
                 include '../view/admin.php';
                 exit;
             }
@@ -200,6 +205,7 @@ switch ($action) {
 
         if (empty($firstname) || empty($lastname) || empty($email)) {
             $message = '<p>Please provide information you would like to change.</p>';
+            $_SESSION['message'] = $message;
             include '../view/client-update.php';
             exit;
         } else {
@@ -212,8 +218,10 @@ switch ($action) {
                 $clientData = getClient($email);
                 array_pop($clientData);
                 $_SESSION['clientData'] = $clientData;
+
                 $message = "<p>$firstname, you have successfully updated your account information.</p>";
                 $_SESSION['message'] = $message;
+
                 setcookie('firstname', $firstname, strtotime('+1 year'), '/');
                     header('location: /acmeproject/accounts/index.php?action=update');
                     exit;
@@ -224,6 +232,7 @@ switch ($action) {
 
             else {
                 $message = "<p>Sorry, your client information did not update.</p>";
+                $_SESSION['message'] = $message;
                 include '../view/client-update.php';
                 exit;
             }
@@ -242,6 +251,7 @@ switch ($action) {
 
         if (empty($checkPassword)) {
             $message = '<p>Please provide a password change.</p>';
+            $_SESSION['message'] = $message;
             include '../view/client-update.php';
             exit;
         }
@@ -252,12 +262,14 @@ switch ($action) {
             }
 
         if ($updatePassword) {
-            $message = 'Succeeeessss!';
+            $message = 'Your password has been updated.';
+            $_SESSION['message'] = $message;
             include '../view/admin.php';
             exit;
         }
         else {
-            $message = 'YOU FAILED, AND YOU SMELL LIKE FEET';
+            $message = 'Sorry, your password was not updated.';
+            $_SESSION['message'] = $message;
             include '../view/admin.php';
             exit;
         }

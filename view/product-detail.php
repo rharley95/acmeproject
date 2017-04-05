@@ -3,7 +3,6 @@
 $firstname = $_SESSION['clientData']['clientFirstname'];
 $lastname = $_SESSION['clientData']['clientLastname'];
 $clientId = $_SESSION['clientData']['clientId'];
-$firstname = substr($firstname, 0, 1);
 $screenName = $firstname . " " . $lastname;
 
 
@@ -28,29 +27,29 @@ $screenName = $firstname . " " . $lastname;
     <section class="prod-main">
         <?php echo $prodInfoDisplay; ?>
         <?php echo $thumbDisplay; ?>
-        <?php echo $reviewInfo; ?>
-
-
-
-
 
         <form method="post" action="/acmeproject/reviews/index.php">
             <?php
-            if (isset($message)) {
-                echo $message;
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
             }
             ?>
             <h1>Write a Review</h1>
             <span> Review:</span>
-            <input type="text" value="<?php echo $screenName?>" disabled="disabled"> </br></br>
-            <textarea name="reviewText" id="reviewText" required> <?php if(isset($reviewText)){echo "hi";} ?> </textarea>
-        </br>
+            <input type="text" value="<?php echo $screenName?>" disabled="disabled"> <br/><br/>
+            <textarea name="reviewText" id="reviewText" required></textarea>
+        <br/>
+
             <input type="submit" name="submit" id="regbtn" value="Register Review">
             <input type="hidden" name="prodId" id="prodId" value=<?php echo $product ?>>
             <input type="hidden" name="clientId" value="<?php if(isset($_SESSION['clientData']['clientId'])){ echo $_SESSION['clientData']['clientId'];} ?>">
             <input type="hidden" name="action" value="new">
 
         </form>
+        <hr>
+        <h1>Product's Reviews:</h1>
+
+        <?php echo $reviewInfo; ?>
 
 
 
@@ -58,6 +57,7 @@ $screenName = $firstname . " " . $lastname;
 
     </section>
     <hr>
+
     <?php
     include 'footer.php';
     ?>
@@ -68,3 +68,4 @@ $screenName = $firstname . " " . $lastname;
 </body>
 
 </html>
+<?php unset($_SESSION['message']); ?>

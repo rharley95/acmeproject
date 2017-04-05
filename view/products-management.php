@@ -21,15 +21,17 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
 <body>
 
     <section class="main">
+
        <?php
             include 'header.php';
             ?>
-        <center>
+        <section class="prod-l">
         <h1>Product Management</h1>
         
         <a href="/acmeproject/categories/index.php?action=categories"> Add Categories </a>
         <br/>
         <a href="/acmeproject/products/index.php?action=register"> Add To Inventory </a>
+    <br/>
 
             <?php
             if (isset($message)) {
@@ -40,7 +42,7 @@ if ( $_SESSION['clientData']['clientLevel'] < 2){
             ?>
 
 
-        </center>
+        </section>
 
 
             
